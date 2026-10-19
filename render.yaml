@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: sst-elite-terminal
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: FINNHUB_API_KEY
+        sync: false
+      - key: SST_CACHE_SECONDS
+        value: "180"
+      - key: SST_MAX_SCAN_TICKERS
+        value: "25"
+      - key: SST_ALLOW_YFINANCE_FALLBACK
+        value: "true"
